@@ -6,9 +6,8 @@ class Day6(private val input: List<String>) {
     fun part1() = findGuardPositions(input)?.size ?: error("no solution found")
 
     private fun findGuardPositions(map: List<String>): Set<Vector>? {
-        var dir = Vector(0, -1)
-
-        var pos = startPos(map)
+        var pos = input.positionOf('^')
+        var dir = Dir.N
 
         val positions = mutableSetOf(pos)
         val states = mutableSetOf(pos to dir)
@@ -18,7 +17,7 @@ class Day6(private val input: List<String>) {
             if (next !in map) {
                 break
             }
-            if (map.charAt(next) == '#') {
+            if (map[next] == '#') {
                 dir = dir.turnRight()
             } else {
                 pos = next
@@ -32,20 +31,8 @@ class Day6(private val input: List<String>) {
         return positions
     }
 
-    private fun startPos(map: List<String>) = map.indices.firstNotNullOf { y ->
-        map[y].indexOf('^').let { x -> if (x == -1) null else Vector(x, y) }
-    }
-
-    private fun List<String>.charAt(pos: Vector) = this[pos.y][pos.x]
-    private operator fun List<String>.contains(v: Vector) = v.y in this.indices && v.x in this[v.y].indices
-
-    private data class Vector(val x: Int, val y: Int) {
-        operator fun plus(other: Vector) = Vector(this.x + other.x, this.y + other.y)
-        fun turnRight() = Vector(-y, x)
-    }
-
     fun part2(): Int {
-        val positions = findGuardPositions(input)!! - startPos(input)
+        val positions = findGuardPositions(input)!! - input.positionOf('^')
         return positions.count { pos -> findGuardPositions(input.withObstacleAt(pos)) == null }
     }
 

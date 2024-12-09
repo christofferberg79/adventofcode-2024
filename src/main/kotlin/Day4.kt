@@ -3,26 +3,21 @@ package cberg.aoc2024
 class Day4(private val input: List<String>) {
     constructor(input: Input) : this(input.lines())
 
-    fun part1() = input.indices.sumOf { row -> input[row].indices.sumOf { col -> countXmasAt(row, col) } }
+    fun part1() = input.positions().sumOf { pos -> countXmasAt(pos) }
 
-    private fun countXmasAt(row: Int, col: Int): Int {
-        val offsets = listOf(0 to 1, 1 to 1, 1 to 0, 1 to -1, 0 to -1, -1 to -1, -1 to 0, -1 to 1)
-        return offsets.count { (dRow, dCol) -> getStringAt(row, col, dRow, dCol, 4) == "XMAS" }
-    }
+    private fun countXmasAt(pos: Vector) = Dir.all.count { dir -> getStringAt(pos, dir, 4) == "XMAS" }
 
-    private fun getStringAt(row: Int, col: Int, dRow: Int, dCol: Int, length: Int) = buildString {
+    private fun getStringAt(pos: Vector, dir: Vector, length: Int) = buildString {
         for (offset in 0 until length) {
-            append(input.getCharAt(row + dRow * offset, col + dCol * offset))
+            append(input.charAt(pos + dir * offset) ?: ' ')
         }
     }
 
-    private fun List<String>.getCharAt(row: Int, col: Int) = getOrNull(row)?.getOrNull(col) ?: ' '
+    fun part2() = input.positions().count { pos -> hasXmasAt(pos) }
 
-    fun part2() = input.indices.sumOf { row -> input[row].indices.count { col -> hasXmasAt(row, col) } }
-
-    private fun hasXmasAt(row: Int, col: Int): Boolean {
-        val s1 = getStringAt(row-1, col-1, 1, 1, 3)
-        val s2 = getStringAt(row-1, col+1, 1, -1, 3)
+    private fun hasXmasAt(pos: Vector): Boolean {
+        val s1 = getStringAt(pos + Dir.NW, Dir.SE, 3)
+        val s2 = getStringAt(pos + Dir.SW, Dir.NE, 3)
         return (s1 == "MAS" || s1 == "SAM") && (s2 == "MAS" || s2 == "SAM")
     }
 }
