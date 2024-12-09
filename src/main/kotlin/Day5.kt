@@ -1,6 +1,6 @@
 package cberg.aoc2024
 
-class Day5(private val input: List<String>) {
+class Day5(input: List<String>) {
     constructor(input: Input) : this(input.lines())
 
     private val rules = input.takeWhile { it.isNotBlank() }
