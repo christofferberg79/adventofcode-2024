@@ -67,4 +67,12 @@ class Test {
         assertEquals(34, Day8(Input("day8_ex1")).part2())
         assertEquals(934, Day8(Input("day8")).part2())
     }
+
+    @Test
+    fun day9() {
+        assertEquals(1928, Day9(Input("day9_ex1")).part1())
+        assertEquals(6446899523367, Day9(Input("day9")).part1())
+        assertEquals(2858, Day9(Input("day9_ex1")).part2())
+        assertEquals(6478232739671, Day9(Input("day9")).part2())
+    }
 }
