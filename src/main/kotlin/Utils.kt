@@ -17,6 +17,7 @@ object Dir {
     val W = Vector(-1, 0)
     val NW = Vector(-1, -1)
     val all = listOf(N, NE, E, SE, S, SW, W, NW)
+    val nesw = listOf(N, E, S, W)
 }
 
 fun List<String>.charAt(v: Vector) = getOrNull(v.y)?.getOrNull(v.x)
@@ -26,4 +27,6 @@ operator fun List<String>.contains(v: Vector) = v.y in indices && v.x in get(v.y
 fun List<String>.positionOf(c: Char) = indices.firstNotNullOf { y ->
     get(y).indexOf(c).let { x -> if (x == -1) null else Vector(x, y) }
 }
+fun List<String>.positionsOf(c: Char) = positions().filter { charAt(it) == c }
+
 
