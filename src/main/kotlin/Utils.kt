@@ -6,6 +6,7 @@ operator fun Vector.plus(other: Vector) = Vector(this.x + other.x, this.y + othe
 operator fun Vector.minus(other: Vector) = Vector(this.x - other.x, this.y - other.y)
 operator fun Vector.times(factor: Int) = Vector(this.x * factor, this.y * factor)
 fun Vector.turnRight() = Vector(-y, x)
+fun Vector.turnLeft() = Vector(y, -x)
 
 object Dir {
     val N = Vector(0, -1)
