@@ -1,7 +1,7 @@
 package cberg.aoc2024
 
-class Day12(private val input: List<String>) {
-    constructor(input: Input) : this(input.lines())
+class Day12(private val input: CharGrid) {
+    constructor(input: Input) : this(input.charGrid())
 
     fun part1() = solve(::perimeterPriceBySize)
 
@@ -18,7 +18,7 @@ class Day12(private val input: List<String>) {
                     val otherPlot = plot + dir
                     if (otherPlot in region) {
                         continue
-                    } else if (input.charAt(otherPlot) == input.charAt(plot)) {
+                    } else if (input.getOrNull(otherPlot) == input.getOrNull(plot)) {
                         todo += otherPlot
                     } else {
                         perimeter += plot to dir

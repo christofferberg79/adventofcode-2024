@@ -1,11 +1,11 @@
 package cberg.aoc2024
 
-class Day6(private val input: List<String>) {
-    constructor(input: Input) : this(input.lines())
+class Day6(private val input: CharGrid) {
+    constructor(input: Input) : this(input.charGrid())
 
     fun part1() = findGuardPositions(input)?.size ?: error("no solution found")
 
-    private fun findGuardPositions(map: List<String>): Set<Vector>? {
+    private fun findGuardPositions(map: CharGrid): Set<Vector>? {
         var pos = input.positionOf('^')
         var dir = Dir.N
 
@@ -36,9 +36,9 @@ class Day6(private val input: List<String>) {
         return positions.count { pos -> findGuardPositions(input.withObstacleAt(pos)) == null }
     }
 
-    private fun List<String>.withObstacleAt(pos: Vector) = mapIndexed { y, line ->
+    private fun CharGrid.withObstacleAt(pos: Vector): CharGrid = mapIndexed { y, line ->
         if (y == pos.y) {
-            line.replaceRange(pos.x, pos.x + 1, "#")
+            buildList { addAll(line); this[pos.x] = '#' }.toMutableList()
         } else {
             line
         }

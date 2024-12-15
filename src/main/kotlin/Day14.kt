@@ -62,19 +62,19 @@ class Day14(private val width: Int, private val height: Int, input: List<String>
             "X                             X",
             "X                             X",
             "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        )
+        ).toCharGrid()
 
         return generateSequence(robots) { robots -> robots.map { robot -> robot.move() } }
             .indexOfFirst { robots -> christmasTree in robots }
     }
 
-    private operator fun List<Robot>.contains(picture: List<String>): Boolean {
+    private operator fun List<Robot>.contains(picture: CharGrid): Boolean {
         val robotPositions = this.map { robot -> robot.p }.toSet()
-        val offsets = (0..width - picture.maxOf(String::length))
+        val offsets = (0..width - picture.maxOf { it.size })
             .flatMap { x -> (0..height - picture.size).map { y -> Vector(x, y) } }
         val picturePositions = picture.indices.flatMap { y -> picture[y].indices.map { x -> Vector(x, y) } }
         return offsets.any { offset ->
-            picturePositions.all { p -> (picture.charAt(p) == 'X') == (p + offset in robotPositions) }
+            picturePositions.all { p -> (picture[p] == 'X') == (p + offset in robotPositions) }
         }
     }
 }

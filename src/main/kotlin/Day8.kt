@@ -1,7 +1,7 @@
 package cberg.aoc2024
 
-class Day8(private val input: List<String>) {
-    constructor(input: Input) : this(input.lines())
+class Day8(private val input: CharGrid) {
+    constructor(input: Input) : this(input.charGrid())
 
     fun part1() = pairs().map { (a, b) -> b + (b - a) }
         .toSet().count { it in input }
@@ -11,13 +11,9 @@ class Day8(private val input: List<String>) {
     }
         .toSet().count()
 
-    private fun pairs() = input.flatMapIndexed { y, line -> line.mapIndexed { x, c -> Vector(x, y) to c } }
-        .filter { (_, c) -> c != '.' }
-        .groupBy(keySelector = { it.second }, valueTransform = { it.first }).values.flatMap { positions ->
-            positions.flatMap { a ->
-                positions.filter { b -> a != b }
-                    .map { b -> a to b }
-            }
+    private fun pairs() = input.positions().filter { input[it] != '.' }.let { positions ->
+        positions.flatMap { a ->
+            positions.filter { b -> b != a && input[b] == input[a] }.map { b -> a to b }
         }
-
+    }
 }

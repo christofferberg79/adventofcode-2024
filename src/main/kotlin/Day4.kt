@@ -1,7 +1,7 @@
 package cberg.aoc2024
 
-class Day4(private val input: List<String>) {
-    constructor(input: Input) : this(input.lines())
+class Day4(private val input: CharGrid) {
+    constructor(input: Input) : this(input.charGrid())
 
     fun part1() = input.positions().sumOf { pos -> countXmasAt(pos) }
 
@@ -9,7 +9,7 @@ class Day4(private val input: List<String>) {
 
     private fun getStringAt(pos: Vector, dir: Vector, length: Int) = buildString {
         for (offset in 0 until length) {
-            append(input.charAt(pos + dir * offset) ?: ' ')
+            append(input.getOrNull(pos + dir * offset) ?: ' ')
         }
     }
 

@@ -7,6 +7,7 @@ class Input(filename: String) {
 
     fun oneLine() = lines().first()
     fun lines() = file.readLines()
+    fun charGrid(): CharGrid = file.readLines().toCharGrid()
     fun <R> lines(transform: (String) -> R) = lines().map(transform)
     fun intLines() = lines().map { it.toInt() }
 }

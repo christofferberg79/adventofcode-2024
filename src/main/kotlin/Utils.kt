@@ -21,14 +21,39 @@ object Dir {
     val nesw = listOf(N, E, S, W)
 }
 
-fun List<String>.charAt(v: Vector) = getOrNull(v.y)?.getOrNull(v.x)
-operator fun List<String>.get(v: Vector) = this[v.y][v.x]
-fun List<String>.positions() = indices.flatMap { row -> get(row).indices.map { col -> Vector(col, row) } }
-operator fun List<String>.contains(v: Vector) = v.y in indices && v.x in get(v.y).indices
-fun List<String>.positionOf(c: Char) = indices.firstNotNullOf { y ->
-    get(y).indexOf(c).let { x -> if (x == -1) null else Vector(x, y) }
+typealias Grid<E> = List<MutableList<E>>
+typealias CharGrid = Grid<Char>
+
+fun List<String>.toCharGrid(): CharGrid = map { s -> s.toMutableList() }
+
+fun <E> Grid<E>.positions() = buildList {
+    for (y in this@positions.indices)
+        for (x in this@positions[y].indices)
+            add(Vector(x, y))
 }
-fun List<String>.positionsOf(c: Char) = positions().filter { charAt(it) == c }
+
+fun <E> Grid<E>.positionsOf(element: E) = buildList {
+    for (y in this@positionsOf.indices)
+        for (x in this@positionsOf[y].indices)
+            if (this@positionsOf[y][x] == element)
+                add(Vector(x, y))
+}
+
+fun <E> Grid<E>.positionOf(element: E): Vector {
+    for (y in this.indices)
+        for (x in this[y].indices)
+            if (this[y][x] == element)
+                return Vector(x, y)
+    throw NoSuchElementException()
+}
+
+operator fun <E> Grid<E>.contains(v: Vector) = v.y in indices && v.x in get(v.y).indices
+
+operator fun <E> Grid<E>.get(v: Vector) = this[v.y][v.x]
+fun <E> Grid<E>.getOrNull(v: Vector) = getOrNull(v.y)?.getOrNull(v.x)
+operator fun <E> Grid<E>.set(v: Vector, e: E) {
+    this[v.y][v.x] = e
+}
 
 fun <T> Iterable<T>.split(delimiter: (T) -> Boolean): List<List<T>> {
     val lists = mutableListOf(mutableListOf<T>())
