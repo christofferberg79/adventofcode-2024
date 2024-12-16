@@ -5,6 +5,7 @@ data class Vector(val x: Int, val y: Int)
 operator fun Vector.plus(other: Vector) = Vector(this.x + other.x, this.y + other.y)
 operator fun Vector.minus(other: Vector) = Vector(this.x - other.x, this.y - other.y)
 operator fun Vector.times(factor: Int) = Vector(this.x * factor, this.y * factor)
+operator fun Vector.unaryMinus() = Vector(-x, -y)
 fun Vector.turnRight() = Vector(-y, x)
 fun Vector.turnLeft() = Vector(y, -x)
 
