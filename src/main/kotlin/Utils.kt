@@ -67,3 +67,17 @@ fun <T> Iterable<T>.split(delimiter: (T) -> Boolean): List<List<T>> {
     }
     return lists
 }
+
+ fun <T> List<T>.binarySearch(fromIndex: Int = 0, toIndex: Int = size, predicate: (T) -> Boolean): T {
+    var i = fromIndex-1
+    var j = toIndex
+    while (i + 1 < j) {
+        val m = i + (j - i) / 2
+        if (predicate(this[m])) {
+            j = m
+        } else {
+            i = m
+        }
+    }
+    return this[j]
+}
