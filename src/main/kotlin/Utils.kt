@@ -1,5 +1,7 @@
 package cberg.aoc2024
 
+import kotlin.math.abs
+
 data class Vector(val x: Int, val y: Int)
 
 operator fun Vector.plus(other: Vector) = Vector(this.x + other.x, this.y + other.y)
@@ -8,6 +10,7 @@ operator fun Vector.times(factor: Int) = Vector(this.x * factor, this.y * factor
 operator fun Vector.unaryMinus() = Vector(-x, -y)
 fun Vector.turnRight() = Vector(-y, x)
 fun Vector.turnLeft() = Vector(y, -x)
+val Vector.manhattanDistance get() = abs(x) + abs(y)
 
 object Dir {
     val N = Vector(0, -1)

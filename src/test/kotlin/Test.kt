@@ -150,4 +150,16 @@ class Test {
         assertEquals(16, Day19(Input("day19_ex1")).part2())
         assertEquals(603191454138773, Day19(Input("day19")).part2())
     }
+
+    @Test
+    fun day20() {
+        assertEquals(14, Day20(Input("day20_ex1")).part1 { it == 2 })
+        assertEquals(3, Day20(Input("day20_ex1")).part1 { it == 12 })
+        assertEquals(1, Day20(Input("day20_ex1")).part1 { it == 64 })
+        assertEquals(1378, Day20(Input("day20")).part1 { it >= 100 })
+        assertEquals(32, Day20(Input("day20_ex1")).part2 { it == 50 })
+        assertEquals(19, Day20(Input("day20_ex1")).part2 { it == 64 })
+        assertEquals(3, Day20(Input("day20_ex1")).part2 { it == 76 })
+        assertEquals(975379, Day20(Input("day20")).part2 { it >= 100 })
+    }
 }
