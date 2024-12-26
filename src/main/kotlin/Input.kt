@@ -10,4 +10,5 @@ class Input(filename: String) {
     fun charGrid(): CharGrid = file.readLines().toCharGrid()
     fun <R> lines(transform: (String) -> R) = lines().map(transform)
     fun intLines() = lines().map { it.toInt() }
+    fun longLines() = lines().map { it.toLong() }
 }
