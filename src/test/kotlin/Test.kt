@@ -172,4 +172,12 @@ class Test {
         assertEquals(23, Day22(Input("day22_ex2")).part2())
         assertEquals(2191, Day22(Input("day22")).part2())
     }
+
+    @Test
+    fun day23() {
+        assertEquals(7, Day23(Input("day23_ex1")).part1())
+        assertEquals(1330, Day23(Input("day23")).part1())
+        assertEquals("co,de,ka,ta", Day23(Input("day23_ex1")).part2())
+        assertEquals("hl,io,ku,pk,ps,qq,sh,tx,ty,wq,xi,xj,yp", Day23(Input("day23")).part2())
+    }
 }
